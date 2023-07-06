@@ -1,5 +1,8 @@
 import axios from "axios";
+import getConfig from "next/config";
 import { createContext, useContext, useEffect, useState } from "react";
+
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
 const DataContext = createContext()
 
@@ -12,7 +15,7 @@ export const DataContextProvider = ({ children }) => {
     useEffect(() => {
         axios
           .get(
-            `https://newsapi.org/v2/everything?q=norway+${headline}&sortBy=publishedAt&apiKey=9932a81d52f24e0a941e532102c02251`
+            `https://newsapi.org/v2/everything?q=norway+${headline}&sortBy=publishedAt&apiKey=${publicRuntimeConfig.REACT_APP_API_KEY}`
           )
           .then((response) => {
             const filterData = response.data.articles.filter(article => article.author && article.urlToImage)

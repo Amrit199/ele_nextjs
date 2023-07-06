@@ -1,8 +1,11 @@
 import fetch from 'isomorphic-unfetch';
+import getConfig from 'next/config';
 
-const API_BASE_URL = 'https://www.strompris.no/strom-product-ms/feeds';
-const API_USERNAME = "feeduser";
-const API_PASSWORD = "consumer";
+const { publicRuntimeConfig } = getConfig()
+
+const API_BASE_URL = publicRuntimeConfig.REACT_API_BASE_URL;
+const API_USERNAME = publicRuntimeConfig.REACT_API_USERNAME;
+const API_PASSWORD = publicRuntimeConfig.REACT_API_PASSWORD;
 // process.env.API_USERNAME process.env.API_PASSWORD
 export const fetchFeedData = async (date, signal) => {
   const formattedDate = encodeURIComponent(date);
